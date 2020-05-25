@@ -1,0 +1,42 @@
+{% extends 'registration/base.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+    <div class="card-body register-card-body">
+        <p class="login-box-msg">Register a new membership</p>
+
+        <form action="" method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                {{ field.label_tag }}
+                <div class="input-group mb-3">
+                    {{ field | add_class:'form-control' }}
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-user"></span>
+                        </div>
+                    </div>
+                </div>
+                {% for error in field.errors %}
+                    <div class="help-block text-danger">{{ error | safe }}</div>
+                    {% endfor %}
+            {% endfor %}
+            <div class="row">
+                <div class="col-8">
+                    <div class="icheck-primary">
+                        <input type="checkbox" id="agreeTerms" name="terms" value="agree">
+                        <label for="agreeTerms">
+                            I agree to the <a href="#">terms</a>
+                        </label>
+                    </div>
+                </div>
+                <!-- /.col -->
+                <div class="col-4">
+                    <button type="submit" class="btn btn-primary btn-block">Register</button>
+                </div>
+                <!-- /.col -->
+            </div>
+        </form>
+        <a href="{% url 'qrcard:home' %}" class="text-center">I already have a membership</a>
+    </div>
+{% endblock content %}
